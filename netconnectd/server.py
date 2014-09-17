@@ -9,6 +9,7 @@ import subprocess
 import time
 import threading
 import wifi
+import wifi_ap
 import wifi.scheme
 import wifi.utils
 
@@ -39,10 +40,10 @@ class Server(object):
 
         self.logger = logging.getLogger(__name__)
 
-        self.Hostapd = wifi.Hostapd.for_hostapd_and_confd(path_hostapd, path_hostapd_conf)
-        self.Dnsmasq = wifi.Dnsmasq.for_dnsmasq_and_confd(path_dnsmasq, path_dnsmasq_conf)
+        self.Hostapd = wifi_ap.Hostapd.for_hostapd_and_confd(path_hostapd, path_hostapd_conf)
+        self.Dnsmasq = wifi_ap.Dnsmasq.for_dnsmasq_and_confd(path_dnsmasq, path_dnsmasq_conf)
         self.Scheme = wifi.Scheme.for_file(path_interfaces)
-        self.AccessPoint = wifi.AccessPoint.for_classes(
+        self.AccessPoint = wifi_ap.AccessPoint.for_classes(
             hostapd_cls=self.Hostapd,
             dnsmasq_cls=self.Dnsmasq,
             scheme_cls=self.Scheme
